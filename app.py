@@ -37,7 +37,11 @@ def chat_response():
         response = "현재는 중국학생들을 대상으로 한국어 문장을 교열하고 있습니다.\n영어 보고서 교열 서비스도 준비중에 있습니다."
         return json.jsonify(response=response)
     
-    elif "교열" and ("견적" or '얼마') in query_noun:
+    elif "교열" and '얼마' in query_noun:
+        response = "3장 기준으로 5천원입니다.\n3장 이상의 경우에는 8천원입니다."
+        return json.jsonify(response=response)
+
+    elif "교열" and "견적" in query_noun:
         response = "3장 기준으로 5천원입니다.\n3장 이상의 경우에는 8천원입니다."
         return json.jsonify(response=response)
 
