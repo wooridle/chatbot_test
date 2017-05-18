@@ -1,12 +1,13 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, json
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
+from chatterbot.trainers import ListTrainer
+from konlpy.tag import Kkma
+
 
 app = Flask(__name__)
 
-english_bot = ChatBot("English Bot")
-english_bot.set_trainer(ChatterBotCorpusTrainer)
-english_bot.train("chatterbot.corpus.english")
+
 
 @app.route("/")
 def home():
@@ -14,8 +15,36 @@ def home():
 
 @app.route("/get/<string:query>")
 def get_raw_response(query):
-    return str(english_bot.get_response(query))
+    return json.jsonify(str(chatterbot.get_response("good morning")))
+
+
+@app.route('/get/chat/<string:query>')
+def chat_response(query):
+    kkma = Kkma()
+
+    query_noun = kkma.nouns(query)
+    response = None
+
+    if "안녕" in query_noun:
+        response = '안녕하세요!'
+
+    return json.jsonify(response = response)
 
 
 if __name__ == "__main__":
-    app.run()
+    chatterbot = ChatBot("baogao", read_only=True)
+    chatterbot.set_trainer(ListTrainer)
+
+    conversation = [
+        "안녕",
+        "안녕하세요"
+    ]
+
+    chatterbot.set_trainer(ListTrainer)
+    chatterbot.train(conversation)
+
+    from gevent.wsgi import WSGIServer
+    http_server = WSGIServer(('0.0.0.0', 5002), app)
+    http_server.serve_forever()
+    #app.run(host="0.0.0.0", port=5002, threaded=True)
+
