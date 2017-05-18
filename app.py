@@ -36,16 +36,16 @@ def chat_response(query):
 
 
 if __name__ == "__main__":
-    chatterbot = ChatBot("baogao", read_only=True)
-    chatterbot.set_trainer(ListTrainer)
-
-    conversation = [
-        "안녕",
-        "안녕하세요"
-    ]
-
-    chatterbot.set_trainer(ListTrainer)
-    chatterbot.train(conversation)
+    # chatterbot = ChatBot("baogao", read_only=True)
+    # chatterbot.set_trainer(ListTrainer)
+    #
+    # conversation = [
+    #     "안녕",
+    #     "안녕하세요"
+    # ]
+    #
+    # chatterbot.set_trainer(ListTrainer)
+    # chatterbot.train(conversation)
 
     from gevent.wsgi import WSGIServer
     http_server = WSGIServer(('0.0.0.0', 5002), app)
