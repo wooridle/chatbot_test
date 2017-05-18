@@ -27,21 +27,39 @@ def chat_response():
     print(query_noun)
     if "안녕" in query_noun:
         response = '안녕하세요!'
+        return json.jsonify(response=response)
 
-    if "교열" and "가격" in query_noun:
+    elif "교열" and "가격" in query_noun:
         response = "3장 기준으로 5천원입니다.\n3장 이상의 경우에는 8천원입니다."
+        return json.jsonify(response=response)
     
-    if "교열" and "언어" in query_noun:
+    elif "교열" and "언어" in query_noun:
         response = "현재는 중국학생들을 대상으로 한국어 문장을 교열하고 있습니다.\n영어 보고서 교열 서비스도 준비중에 있습니다."
+        return json.jsonify(response=response)
     
-    if "교열" and "견적" in query_noun:
+    elif "교열" and "견적" in query_noun:
         response = "3장 기준으로 5천원입니다.\n3장 이상의 경우에는 8천원입니다."
+        return json.jsonify(response=response)
 
-    if "교열가" in query_noun:
-        response = ""
+    elif "교열가" in query_noun:
+        response = "교열가 정보는 실제 의뢰를 해주신 경우에 매칭되는 시스템입니다."
+        return json.jsonify(response=response)
 
+    elif "비밀" in query_noun:
+        response = "물론입니다.\n교열이 완료된 문서에 대해 2주간 보관후 폐기를 원칙으로 하고 있습니다."
+        return json.jsonify(response=response)
 
-    return json.jsonify(response = response)
+    elif "감사" in query_noun:
+        response = "저희 바오가오 서비스를 이용해 주셔서 감사합니다.\n더욱 완성도 높은 서비스로 보답하겠습니다."
+        return json.jsonify(response=response)
+
+    elif "결제" in query_noun:
+        response = "6월 1일까지는 무료로 이용이 가능합니다.\n유료화 이후에는 신용카드와 체크카드로 결제가 가능합니다."
+        return json.jsonify(response=response)
+
+    elif "교정" and "번역" and "차이" in query_noun:
+        response = "번역은 원문만 제공해주시면 번역요청언어로 번역 서비스를 제공합니다.\n교정은 스스로 문장을"
+        return json.jsonify(response=response)
 
 def pretranslatedCreateFile(self, project_id, resource_id):
     """
