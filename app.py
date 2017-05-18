@@ -19,18 +19,27 @@ def get_raw_response(query):
 
 
 @app.route('/chat', methods = ['GET'])
-def chat_response(query):
+def chat_response():
     kkma = Kkma()
     query = request.args.get('q')
-    #query = query.decode('cp949').encode('utf-8')
-    query_noun = kkma.nouns(query)
     response = None
+    query_noun = kkma.nouns(str(query))
     print(query_noun)
     if "안녕" in query_noun:
         response = '안녕하세요!'
 
-    if "교열" and ("가격" or "견적") in query_noun:
+    if "교열" and "가격" in query_noun:
         response = "3장 기준으로 5천원입니다.\n3장 이상의 경우에는 8천원입니다."
+    
+    if "교열" and "언어" in query_noun:
+        response = "현재는 중국학생들을 대상으로 한국어 문장을 교열하고 있습니다.\n영어 보고서 교열 서비스도 준비중에 있습니다."
+    
+    if "교열" and "견적" in query_noun:
+        response = "3장 기준으로 5천원입니다.\n3장 이상의 경우에는 8천원입니다."
+
+    if "교열가" in query_noun:
+        response = ""
+
 
     return json.jsonify(response = response)
 
@@ -114,7 +123,7 @@ if __name__ == "__main__":
     # chatterbot.train(conversation)
 
     from gevent.wsgi import WSGIServer
-    http_server = WSGIServer(('0.0.0.0', 5002), app)
+    http_server = WSGIServer(('0.0.0.0', 7007), app)
     http_server.serve_forever()
     #app.run(host="0.0.0.0", port=5002, threaded=True)
 
