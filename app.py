@@ -21,7 +21,7 @@ def get_raw_response(query):
 @app.route('/get/chat/<string:query>')
 def chat_response(query):
     kkma = Kkma()
-
+    query = query.decode('cp949').encode('utf-8')
     query_noun = kkma.nouns(query)
     response = None
 
